@@ -39,6 +39,18 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun ProductSection(){
+    Column {
+        Text("Promotions")
+        Row {
+            ProductItem()
+            ProductItem()
+            ProductItem()
+        }
+    }
+}
+
+@Composable
 fun ProductItem() {
     Surface(
         shape = RoundedCornerShape(15.dp),
@@ -94,7 +106,6 @@ fun ProductItem() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun KitProductItem() {
     Surface(
@@ -148,4 +159,17 @@ fun KitProductItem() {
 
         }
     }
+}
+
+/********************** Previews ***************/
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductItemPreview(){
+    ProductItem()
+}
+@Preview(showBackground = true)
+@Composable
+private fun ProductSectionPreview(){
+    ProductSection()
 }
