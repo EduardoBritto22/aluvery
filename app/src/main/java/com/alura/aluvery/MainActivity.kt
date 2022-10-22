@@ -39,10 +39,27 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ProductSection(){
+fun ProductSection() {
     Column {
-        Text("Promotions")
-        Row {
+        Text(
+            "Promotions",
+            Modifier.padding(
+                start = 16.dp,
+                top = 16.dp,
+                end = 16.dp
+            ),
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400)
+        )
+        Row(
+            Modifier.padding(
+                start = 16.dp,
+                top = 8.dp,
+                bottom = 16.dp
+            )
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             ProductItem()
             ProductItem()
             ProductItem()
@@ -165,11 +182,12 @@ fun KitProductItem() {
 
 @Preview(showBackground = true)
 @Composable
-private fun ProductItemPreview(){
+private fun ProductItemPreview() {
     ProductItem()
 }
+
 @Preview(showBackground = true)
 @Composable
-private fun ProductSectionPreview(){
+private fun ProductSectionPreview() {
     ProductSection()
 }
