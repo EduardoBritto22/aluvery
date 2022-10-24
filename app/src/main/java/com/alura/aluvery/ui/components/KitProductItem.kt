@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,8 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.alura.aluvery.ui.theme.Purple200
-import com.alura.aluvery.ui.theme.Purple700
 import com.alura.aluvery.R
 
 
@@ -40,8 +39,8 @@ fun KitProductItem() {
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(
-                                Purple700,
-                                Purple200
+                                MaterialTheme.colors.primary,
+                                MaterialTheme.colors.secondary
                             )
                         )
                     )
@@ -57,8 +56,8 @@ fun KitProductItem() {
                             width = 2.dp,
                             brush = Brush.verticalGradient(
                                 colors = listOf(
-                                    Purple200,
-                                    Purple700
+                                    MaterialTheme.colors.primary,
+                                    MaterialTheme.colors.secondary
                                 )
                             ),
                             shape = CircleShape

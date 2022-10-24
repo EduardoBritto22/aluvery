@@ -3,6 +3,7 @@ package com.alura.aluvery.ui.components
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,10 +11,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.alura.aluvery.R
 import com.alura.aluvery.model.Product
 import com.alura.aluvery.sampledata.listOfProducts
-import java.math.BigDecimal
+import com.alura.aluvery.ui.theme.AluveryTheme
 
 @Composable
 fun ProductSection(
@@ -51,5 +51,9 @@ fun ProductSection(
 @Preview(showBackground = true)
 @Composable
 private fun ProductSectionPreview() {
-    ProductSection("Promoções", listOfProducts)
+    AluveryTheme {
+        Surface {
+            ProductSection("Promoções", products = listOfProducts)
+        }
+    }
 }
