@@ -10,12 +10,12 @@ val sampleCandies = listOf(
                 image = "https://images.pexels.com/photos/65882/chocolate-dark-coffee-confiserie-65882.jpeg",
         ),
         Product(
-                name = "Sorvete",
+                name = "Ice cream",
                 price = BigDecimal("5.99"),
                 image = "https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg",
         ),
         Product(
-                name = "Bolo",
+                name = "Cake",
                 price = BigDecimal("11.99"),
                 image = "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg",
         )
@@ -23,22 +23,22 @@ val sampleCandies = listOf(
 
 val sampleDrinks = listOf(
         Product(
-                name = "Cerveja",
+                name = "Beer",
                 price = BigDecimal("5.99"),
                 image = "https://images.pexels.com/photos/1552630/pexels-photo-1552630.jpeg",
         ),
         Product(
-                name = "Refrigerante",
+                name = "Soda",
                 price = BigDecimal("4.99"),
                 image = "https://images.pexels.com/photos/2775860/pexels-photo-2775860.jpeg"
         ),
         Product(
-                name = "Suco",
+                name = "Juice",
                 price = BigDecimal("7.99"),
                 image = "https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg"
         ),
         Product(
-                name = "Água",
+                name = "Water",
                 price = BigDecimal("2.99"),
                 image = "https://images.pexels.com/photos/327090/pexels-photo-327090.jpeg"
         )
@@ -69,7 +69,7 @@ val listOfProducts = listOf(
 
 
 val sampleSections = mapOf(
-        "Promoções" to listOfProducts,
-        "Doces" to sampleCandies,
-        "Bebidas" to sampleDrinks
+        "Promotions" to listOfProducts,
+        "Candies" to sampleCandies,
+        "Drinks" to sampleDrinks
 )
