@@ -20,8 +20,6 @@ Aluvery presents a catalog of varied products such as food, sweets, drinks, etc.
 
 ## ✔️ Features and frameworks/libraries
 
-Além das técnicas utilizadas na [primeira versão do projeto](https://github.com/alura-cursos/jetpack-compose-criando-um-app), utilizamos as seguintes técnicas e tecnologias:
-
 - `Lazy Layouts`: performance optimization when handling Columns or Rows with many elements
 - `OutlinedTextField`: text field implementation with Material Design standards
 - `State management`: use mutable states to react to text field changes
