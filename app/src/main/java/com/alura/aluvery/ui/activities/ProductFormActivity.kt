@@ -31,7 +31,7 @@ class ProductFormActivity : ComponentActivity() {
         setContent {
             AluveryTheme {
                 Surface {
-
+                    ProductFormScreen()
                 }
             }
         }

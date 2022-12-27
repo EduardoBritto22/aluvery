@@ -27,7 +27,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.ProductFormActivity"/>
+        <activity android:name=".ui.activities.ProductFormActivity"
+                  android:exported="true"
+                  android:windowSoftInputMode="adjustResize"
+        />
     </application>
 
 </manifest>
