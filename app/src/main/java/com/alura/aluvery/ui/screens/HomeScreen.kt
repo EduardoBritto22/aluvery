@@ -16,34 +16,46 @@ import com.alura.aluvery.ui.components.ProductSection
 import com.alura.aluvery.ui.components.SearchTextField
 import com.alura.aluvery.ui.theme.AluveryTheme
 
+
+class HomeScreenUiState(searchText: String = "") {
+
+    var text by mutableStateOf(searchText)
+        private set
+
+    val searchedProducts get() =
+        if (text.isNotBlank()) {
+            listOfProducts.filter { p ->
+                p.description?.contains(text.trim(), ignoreCase = true) == true
+                        || p.name.contains(text.trim(), ignoreCase = true)
+            }
+        } else {
+            emptyList()
+        }
+
+    fun isShownSections() = text.isBlank()
+
+    val onSearchChange : (String) -> Unit = {searchText->
+        text = searchText
+    }
+}
+
+
+
+
 @Composable
 fun HomeScreen(
     sections: Map<String, List<Product>>,
-    searchText: String = "",
+    state: HomeScreenUiState = HomeScreenUiState(),
 ) {
     Column {
 
-        var text by remember {
-            mutableStateOf(searchText)
-        }
+        val text = state.text
+        val searchedProducts = remember(text) { state.searchedProducts }
 
         SearchTextField(
             searchText = text,
-            onSearchTextChange = {
-                text = it
-            }
+            onSearchTextChange = state.onSearchChange
         )
-
-        val searchedProducts = remember(text) {
-            if (text.isNotBlank()) {
-                listOfProducts.filter { p ->
-                    p.description?.contains(text.trim(), ignoreCase = true) == true
-                            || p.name.contains(text.trim(), ignoreCase = true)
-                }
-            } else {
-                emptyList()
-            }
-        }
 
         LazyColumn(
             Modifier
@@ -51,7 +63,7 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(bottom = 16.dp),
         ) {
-            if (text.isBlank()) {
+            if (state.isShownSections()) {
                 for (section in sections) {
                     val title = section.key
                     val products = section.value
@@ -91,7 +103,7 @@ private fun HomeScreenPreviewWithSearchText() {
         Surface {
             HomeScreen(
                 sampleSections,
-                searchText = "a",
+                state = HomeScreenUiState("a"),
             )
         }
     }

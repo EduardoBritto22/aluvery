@@ -13,6 +13,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alura.aluvery.dao.ProductDao
@@ -20,6 +21,7 @@ import com.alura.aluvery.sampledata.sampleCandies
 import com.alura.aluvery.sampledata.sampleDrinks
 import com.alura.aluvery.sampledata.sampleSections
 import com.alura.aluvery.ui.screens.HomeScreen
+import com.alura.aluvery.ui.screens.HomeScreenUiState
 import com.alura.aluvery.ui.theme.AluveryTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,17 +32,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             App(onFabClick = {
-                startActivity(Intent(this,ProductFormActivity::class.java))
+                startActivity(Intent(this, ProductFormActivity::class.java))
             },
-            content = {
-                val sections = mapOf(
-                    "All products" to dao.products(),
-                    "Promotions" to sampleDrinks + sampleCandies,
-                    "Drinks" to sampleDrinks,
-                    "Candies" to sampleCandies
-                )
-                HomeScreen(sections = sections)
-            }
+                content = {
+                    val sections = mapOf(
+                        "All products" to dao.products(),
+                        "Promotions" to sampleDrinks + sampleCandies,
+                        "Drinks" to sampleDrinks,
+                        "Candies" to sampleCandies
+                    )
+                    val state = remember {
+                        HomeScreenUiState("")
+                    }
+                    HomeScreen(sections = sections, state = state)
+                }
             )
         }
     }
@@ -70,7 +75,7 @@ fun App(
 
 @Preview
 @Composable
-fun AppPreview(){
+fun AppPreview() {
     App {
         HomeScreen(sections = sampleSections)
     }
