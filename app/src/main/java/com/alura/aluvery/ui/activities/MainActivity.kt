@@ -35,14 +35,15 @@ class MainActivity : ComponentActivity() {
                 startActivity(Intent(this, ProductFormActivity::class.java))
             },
                 content = {
+                    val products = dao.products()
                     val sections = mapOf(
-                        "All products" to dao.products(),
+                        "All products" to products,
                         "Promotions" to sampleDrinks + sampleCandies,
                         "Drinks" to sampleDrinks,
                         "Candies" to sampleCandies
                     )
-                    val state = remember(sections) {
-                        HomeScreenUiState(sections = sections)
+                    val state = remember(products) {
+                        HomeScreenUiState(sections = sections, products = products)
                     }
                     HomeScreen(state = state)
                 }
