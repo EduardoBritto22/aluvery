@@ -17,38 +17,38 @@ import com.alura.aluvery.ui.components.SearchTextField
 import com.alura.aluvery.ui.theme.AluveryTheme
 
 
-class HomeScreenUiState(searchText: String = "") {
-
+class HomeScreenUiState(
+    val sections: Map<String, List<Product>> = emptyMap(),
+    searchText: String = ""
+) {
     var text by mutableStateOf(searchText)
         private set
 
-    val searchedProducts get() =
-        if (text.isNotBlank()) {
-            listOfProducts.filter { p ->
-                p.description?.contains(text.trim(), ignoreCase = true) == true
-                        || p.name.contains(text.trim(), ignoreCase = true)
+    val searchedProducts
+        get() =
+            if (text.isNotBlank()) {
+                listOfProducts.filter { p ->
+                    p.description?.contains(text.trim(), ignoreCase = true) == true
+                            || p.name.contains(text.trim(), ignoreCase = true)
+                }
+            } else {
+                emptyList()
             }
-        } else {
-            emptyList()
-        }
 
     fun isShownSections() = text.isBlank()
 
-    val onSearchChange : (String) -> Unit = {searchText->
+    val onSearchChange: (String) -> Unit = { searchText ->
         text = searchText
     }
 }
 
 
-
-
 @Composable
 fun HomeScreen(
-    sections: Map<String, List<Product>>,
     state: HomeScreenUiState = HomeScreenUiState(),
 ) {
     Column {
-
+        val sections = state.sections
         val text = state.text
         val searchedProducts = remember(text) { state.searchedProducts }
 
@@ -91,7 +91,7 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     AluveryTheme {
         Surface {
-            HomeScreen(sampleSections)
+            HomeScreen(HomeScreenUiState(sections = sampleSections))
         }
     }
 }
@@ -102,8 +102,10 @@ private fun HomeScreenPreviewWithSearchText() {
     AluveryTheme {
         Surface {
             HomeScreen(
-                sampleSections,
-                state = HomeScreenUiState("a"),
+                state = HomeScreenUiState(
+                    sections = sampleSections,
+                    "a"
+                ),
             )
         }
     }
