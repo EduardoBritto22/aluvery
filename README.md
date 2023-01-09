@@ -23,5 +23,8 @@ Aluvery presents a catalog of varied products such as food, sweets, drinks, etc.
 - `Lazy Layouts`: performance optimization when handling Columns or Rows with many elements
 - `OutlinedTextField`: text field implementation with Material Design standards
 - `State management`: use mutable states to react to text field changes
-- `Slot-based personalization`: flexible customization in specific slots of certain composables.
+- `Slot-based personalization`: flexible customization in specific slots of certain composable
 - `Dynamic content`: use of the technique to show or not a content depending on the state
+- `Scaffold`: Slot based composable to use with Material Design components
+- `StateHolder`: Use of a class to store/handle the Ui states of a composable or Screen
+- `StateFull and StateLess composables`: Use of two modes of the same composable, one that handles the states and other that is static.
