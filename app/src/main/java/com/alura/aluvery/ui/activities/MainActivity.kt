@@ -13,12 +13,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alura.aluvery.dao.ProductDao
-import com.alura.aluvery.sampledata.sampleCandies
-import com.alura.aluvery.sampledata.sampleDrinks
 import com.alura.aluvery.sampledata.sampleSections
 import com.alura.aluvery.ui.screens.HomeScreen
 import com.alura.aluvery.ui.screens.HomeScreenUiState
@@ -36,16 +33,7 @@ class MainActivity : ComponentActivity() {
             },
                 content = {
                     val products = dao.products()
-                    val sections = mapOf(
-                        "All products" to products,
-                        "Promotions" to sampleDrinks + sampleCandies,
-                        "Drinks" to sampleDrinks,
-                        "Candies" to sampleCandies
-                    )
-                    val state = remember(products) {
-                        HomeScreenUiState(sections = sections, products = products)
-                    }
-                    HomeScreen(state = state)
+                    HomeScreen(products = products)
                 }
             )
         }
