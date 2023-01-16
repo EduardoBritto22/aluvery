@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -42,23 +43,23 @@ class ProductFormUiState(
 fun ProductFormScreen(
     onSaveClick: (Product) -> Unit = {}
 ) {
-    var name by remember {
+    var name by rememberSaveable {
         mutableStateOf("")
     }
 
-    var url by remember {
+    var url by rememberSaveable {
         mutableStateOf("")
     }
 
-    var price by remember {
+    var price by rememberSaveable {
         mutableStateOf("")
     }
 
-    var description by remember {
+    var description by rememberSaveable {
         mutableStateOf("")
     }
 
-    var isPriceError by remember {
+    var isPriceError by rememberSaveable {
         mutableStateOf(false)
     }
 
