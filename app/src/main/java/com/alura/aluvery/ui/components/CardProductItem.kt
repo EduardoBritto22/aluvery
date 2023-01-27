@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -27,18 +28,18 @@ import java.math.BigDecimal
 fun CardProductItem(
     product: Product,
     modifier: Modifier = Modifier,
-    elevation: Dp = 4.dp
+    elevation: Dp = 4.dp,
+    isExpanded: Boolean = false
 ) {
+    var expanded by rememberSaveable { mutableStateOf(isExpanded) }
     Card(
         modifier
             .fillMaxWidth()
-            .heightIn(150.dp),
+            .heightIn(150.dp)
+            .clickable { expanded = !expanded },
         elevation = elevation
     ) {
-        var expanded by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier.clickable { expanded = !expanded }
-        ) {
+        Column {
             AsyncImage(
                 model = product.image,
                 contentDescription = null,
@@ -90,13 +91,14 @@ private fun CardProductItemPreview() {
         Surface {
             CardProductItem(
                 product = Product(
-                    name= "Teste",
-                    price= BigDecimal("9.99")
+                    name = "Teste",
+                    price = BigDecimal("9.99")
                 ),
             )
         }
     }
 }
+
 @Preview
 @Composable
 private fun CardProductItemPreviewWithDescription() {
@@ -104,10 +106,11 @@ private fun CardProductItemPreviewWithDescription() {
         Surface {
             CardProductItem(
                 product = Product(
-                    name= "Teste",
-                    price= BigDecimal("9.99"),
+                    name = "Teste",
+                    price = BigDecimal("9.99"),
                     description = LoremIpsum(50).values.first()
                 ),
+                isExpanded = true
             )
         }
     }
