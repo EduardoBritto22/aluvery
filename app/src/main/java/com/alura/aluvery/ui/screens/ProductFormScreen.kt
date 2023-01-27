@@ -5,8 +5,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -19,99 +20,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.alura.aluvery.R
-import com.alura.aluvery.model.Product
+import com.alura.aluvery.ui.states.ProductFormUiState
 import com.alura.aluvery.ui.theme.AluveryTheme
-import java.math.BigDecimal
+import com.alura.aluvery.ui.viewmodels.ProductFormScreenViewModel
 
-
-class ProductFormUiState(
-    val description: String = "",
-    val url: String = "",
-    val name: String = "",
-    val price: String = "",
-    val isPriceError: Boolean = false,
-    val onPriceChange: (String) -> Unit = {},
-    val onNameChange: (String) -> Unit = {},
-    val onUrlChange: (String) -> Unit = {},
-    val onDescriptionChange: (String) -> Unit = {},
-    val onValidateFormButtonClick: () -> Unit = {}
+@Composable
+fun ProductFormScreen(
+    viewModel: ProductFormScreenViewModel,
+    onSaveClick: () -> Unit = {}
 ) {
-    fun urlIsNotBlank() = url.isNotBlank()
+
+    val state by viewModel.uiState.collectAsState()
+    ProductFormScreen(
+        state = state,
+        onSaveClick = {
+            viewModel.save()
+            onSaveClick()
+        }
+    )
 }
 
 @Composable
 fun ProductFormScreen(
-    onSaveClick: (Product) -> Unit = {}
-) {
-    var name by rememberSaveable {
-        mutableStateOf("")
-    }
-
-    var url by rememberSaveable {
-        mutableStateOf("")
-    }
-
-    var price by rememberSaveable {
-        mutableStateOf("")
-    }
-
-    var description by rememberSaveable {
-        mutableStateOf("")
-    }
-
-    var isPriceError by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    val state: ProductFormUiState = remember(
-        name, url, description, price
-    ) {
-        ProductFormUiState(
-            name = name,
-            url = url,
-            description = description,
-            price = price,
-            isPriceError = isPriceError,
-            onNameChange = {
-                name = it
-            },
-            onUrlChange = {
-                url = it
-            },
-            onDescriptionChange = {
-                description = it
-            },
-            onPriceChange = {
-                isPriceError = try {
-                    BigDecimal(it)
-                    false
-                } catch (e: IllegalArgumentException) {
-                    it.isNotEmpty()
-                }
-                price = it
-            },
-            onValidateFormButtonClick = {
-                val convertedPrice = try {
-                    BigDecimal(price)
-                } catch (e: NumberFormatException) {
-                    BigDecimal.ZERO
-                }
-                val product = Product(
-                    name = name,
-                    image = url,
-                    price = convertedPrice,
-                    description = description
-                )
-                onSaveClick(product)
-            }
-        )
-    }
-    ProductFormScreen(state = state)
-}
-
-@Composable
-fun ProductFormScreen(
-    state: ProductFormUiState = ProductFormUiState()
+    state: ProductFormUiState = ProductFormUiState(),
+    onSaveClick: () -> Unit
 ) {
     Column(
         Modifier
@@ -208,7 +140,7 @@ fun ProductFormScreen(
         )
 
         Button(
-            onClick = state.onValidateFormButtonClick,
+            onClick = onSaveClick,
             Modifier.fillMaxWidth()
         ) {
             Text(text = "Save")
@@ -222,7 +154,7 @@ fun ProductFormScreen(
 fun ProductFormScreenPreview() {
     AluveryTheme {
         Surface {
-            ProductFormScreen(onSaveClick = {})
+           // ProductFormScreen(onSaveClick = {})
         }
     }
 }
